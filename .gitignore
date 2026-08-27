@@ -5,4 +5,7 @@
 **/target/
 *.iml
 
-**/src/main/resources/application.properties
+# Local-only credentials. These files are included in the returned ZIP so the
+# project runs on this machine, but Git will ignore them on future commits.
+**/src/main/resources/application-local.properties
+.env

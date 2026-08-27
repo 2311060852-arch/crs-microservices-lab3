@@ -1,0 +1,15 @@
+Da fix cho Buoi 4:
+1. Sua auth-service: application.properties dung ten va co day du port 8081, auth_db, JWT.
+2. Xoa file sai ten applicatin.properties.
+3. Tach mat khau MySQL sang application-local.properties va gitignore file nay.
+4. Chuan hoa course-service 8082 + course_db + JWT.
+5. Chuan hoa registration-service 8083 + registration_db + JWT + course-service base URL.
+6. Kiem tra api-gateway 8080 co route auth/course/registration/public partner.
+7. Kiem tra AuthHeaderFilter tra 401 khi thieu Authorization.
+8. Kiem tra ApiKeyFilter tra 403 khi X-API-KEY sai/thieu.
+9. Kiem tra course-service: GET public; POST/PUT/DELETE can ADMIN; /internal/** permitAll.
+10. Kiem tra registration-service: /registrations/** can dang nhap.
+11. Them LAB4_SETUP.sql va LAB4_README.md huong dan chay + 8 case Postman + Git commit.
+
+Static verification: 42/42 muc cau hinh/ma nguon bat buoc cua Lab 4 dat yeu cau.
+Luu y: moi truong tao file khong co ket noi Maven Central nen khong the tai dependency de build lai online; source da duoc doi chieu va kiem tra cu phap XML/YAML.
