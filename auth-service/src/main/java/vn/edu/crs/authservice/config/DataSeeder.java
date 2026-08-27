@@ -1,5 +1,4 @@
 package vn.edu.crs.authservice.config;
-import vn.edu.crs.authservice.entity.Student;
 import vn.edu.crs.authservice.entity.User;
 import vn.edu.crs.authservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
