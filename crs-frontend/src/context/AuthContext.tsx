@@ -9,6 +9,7 @@ import {
 import type { LoginResponse } from '../types/auth';
 
 interface AuthUser {
+    id: number;
     username: string;
     role: 'ADMIN' | 'STUDENT';
 }
@@ -32,22 +33,32 @@ export function AuthProvider({
                              }: {
     children: ReactNode;
 }) {
-    const [user, setUser] = useState<AuthUser | null>(null);
+    const [user, setUser] =
+        useState<AuthUser | null>(null);
 
     // Khoi phuc phien dang nhap khi F5
     useEffect(() => {
-        const savedUser = localStorage.getItem(USER_KEY);
-        const savedToken = localStorage.getItem(TOKEN_KEY);
+        const savedUser =
+            localStorage.getItem(USER_KEY);
+
+        const savedToken =
+            localStorage.getItem(TOKEN_KEY);
 
         if (savedUser && savedToken) {
-            setUser(JSON.parse(savedUser));
+            setUser(
+                JSON.parse(savedUser)
+            );
         }
     }, []);
 
     const login = (data: LoginResponse) => {
-        localStorage.setItem(TOKEN_KEY, data.token);
+        localStorage.setItem(
+            TOKEN_KEY,
+            data.token
+        );
 
         const authUser: AuthUser = {
+            id: data.userId,
             username: data.username,
             role: data.role,
         };
@@ -63,6 +74,7 @@ export function AuthProvider({
     const logout = () => {
         localStorage.removeItem(TOKEN_KEY);
         localStorage.removeItem(USER_KEY);
+
         setUser(null);
     };
 
