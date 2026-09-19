@@ -9,7 +9,7 @@ import vn.edu.crs.registrationservice.entity.Registration;
 
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
-
+import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class RegistrationService {
@@ -52,5 +52,8 @@ public class RegistrationService {
 
         registration.setTrangThai(DA_HUY);
         registrationRepository.save(registration);
+    }
+    public List<Registration> getMyRegistrations(Long studentId) {
+        return registrationRepository.findByStudentId(studentId);
     }
 }

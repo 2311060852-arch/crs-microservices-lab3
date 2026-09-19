@@ -32,43 +32,71 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             FilterChain filterChain)
             throws ServletException, IOException {
 
-        String authHeader = request.getHeader("Authorization");
+        String authHeader =
+                request.getHeader("Authorization");
 
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+        if (
+                authHeader != null &&
+                        authHeader.startsWith("Bearer ")
+        ) {
 
-            String token = authHeader.substring(7);
+            String token =
+                    authHeader.substring(7);
 
             try {
-                SecretKey key = Keys.hmacShaKeyFor(
-                        secret.getBytes(StandardCharsets.UTF_8)
-                );
+                SecretKey key =
+                        Keys.hmacShaKeyFor(
+                                secret.getBytes(
+                                        StandardCharsets.UTF_8
+                                )
+                        );
 
-                Claims claims = Jwts.parser()
-                        .verifyWith(key)
-                        .build()
-                        .parseSignedClaims(token)
-                        .getPayload();
+                Claims claims =
+                        Jwts.parser()
+                                .verifyWith(key)
+                                .build()
+                                .parseSignedClaims(token)
+                                .getPayload();
 
-                String username = claims.getSubject();
-                String role = claims.get("role", String.class);
+                String username =
+                        claims.getSubject();
+
+                String role =
+                        claims.get(
+                                "role",
+                                String.class
+                        );
+
+                Long userId =
+                        claims.get(
+                                "userId",
+                                Long.class
+                        );
 
                 var authToken =
                         new UsernamePasswordAuthenticationToken(
                                 username,
-                                null,
+                                userId,
                                 List.of(
-                                        new SimpleGrantedAuthority("ROLE_" + role)
+                                        new SimpleGrantedAuthority(
+                                                "ROLE_" + role
+                                        )
                                 )
                         );
 
-                SecurityContextHolder.getContext()
+                SecurityContextHolder
+                        .getContext()
                         .setAuthentication(authToken);
 
             } catch (Exception e) {
-                SecurityContextHolder.clearContext();
+                SecurityContextHolder
+                        .clearContext();
             }
         }
 
-        filterChain.doFilter(request, response);
+        filterChain.doFilter(
+                request,
+                response
+        );
     }
 }
